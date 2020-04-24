@@ -1,27 +1,24 @@
 const User = require('../models/User');
+const {Storage} = require('@google-cloud/storage');
 
 module.exports = async(req, res) => {
-
-    //const {nome, email, apelido, senha} = req.body;
 
     const nome = req.body.nome;
     const email = req.body.email;
     const apelido = req.body.apelido;
     const senha = req.body.senha;
-    const avatar = req.file.location;
-    const key = req.file.key
+    const avatar = req.file.cloudStoragePublicUrl;
+    const key = req.file.cloudStorageObject;
 
+    const check = await User.findOne({where:{apelido:apelido}});
 
-    const user = await User.create({nome, email, apelido, senha, avatar, key});
-    res.redirect('/user/'+`${user.id}`); return;
-    /*
-    User.create({nome, email, apelido, senha, avatar, key})
-        .then(user => function(){
-            console.log(user);
-            res.redirect('/user/'+`${user.id}`); return;
-        })
-        .catch(function(error){
-            res.status(500).json(error);
-        })
-    */
+    if (check != null){
+        const storage = new Storage();
+        storage.bucket('piratasgram-uploads').file(key).delete();
+        return res.render('Cadastro', {msg:'Apelido já cadastrado'});
+    } else {
+        const user = await User.create({nome, email, apelido, senha, avatar, key});
+        res.redirect('/user/'+`${user.id}`); return;
+        
+    }
 };

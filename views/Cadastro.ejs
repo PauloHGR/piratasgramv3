@@ -7,6 +7,18 @@
 		<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
 		<link rel="stylesheet" type="text/css" href="css/style.css">
 	</head>
+
+	<header>
+		<%if (msg){%>
+		<div class="alert alert-info alert-dismissible fade show" role="alert">
+			
+			<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+			  <span aria-hidden="true">&times;</span>
+			</button>
+			<%=msg%>.
+		</div>
+		<% } %>
+	</header>
 	
 	<body id="body">
 		<div class="container">

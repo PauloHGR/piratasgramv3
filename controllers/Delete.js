@@ -1,55 +1,37 @@
 const User = require('../models/User');
-const aws = require('aws-sdk');
+const Post = require('../models/UserPost');
+const {Storage} = require('@google-cloud/storage');
+const {Datastore} = require('@google-cloud/datastore');
 
-aws.config.update({
-    accessKeyId: '',
-    secretAccessKey: ""
-});
 
 module.exports = async(req, res) => {
    
     const id = req.params.id;
     
     const us = await User.findOne({where:{id:id}});
+    const posts = await Post.findAll({where:{userId:id}});
 
-    const s3 = new aws.S3();
-    var params = {
-        Bucket: 'BUCKET_S3',
-        Delete: {
-            Objects:[],
-            Quiet: false
-        }
-    };
+    const storage = new Storage();
 
-    const paramsDel = {
-        Bucket: 'BUCKET_S3',
-        Prefix: `${us.id}/`
-    };
-
-    s3.listObjects(paramsDel, function(err, data) {
-        if (err) {console.log(err)};
-    
-        data.Contents.forEach(function(content) {
-          //params.Delete.Objects.push({Key: content.Key});
-            s3.deleteObject({Bucket: 'BUCKET_S3', Key: content.Key}, function(err, data){
-                if(err){console.log(err)}
-            });
+    if(posts!=''){
+        posts.forEach(async function(content){
+            storage.bucket('piratasgram-uploads').file(content.keyPost).delete();
+            const datastore = new Datastore();
+            const query = datastore.createQuery('post').filter('id_post','=',content.id);
+            const [tasks] = await datastore.runQuery(query);
+            for (const task of tasks){
+                const taskKey = task[datastore.KEY];
+                await datastore.delete(taskKey);
+            }    
         });
-    });
+    }
 
-    s3.deleteObject({Bucket: 'BUCKET_S3', Key: us.key}, function(err, data){
-        if(err){console.log(err)}
-    });
-    
-    /*
-    s3.deleteObjects(params, function(err, data){
-        if(err){console.log(err)}
-    });
-    */
+    storage.bucket('piratasgram-uploads').file(us.key).delete();
 
     User.destroy({where: {id:id}})
     .then(function(){
         res.redirect('/'); return;
     })
     .catch(error => res.status(500).json({message:error}));
+    
 };

@@ -1,25 +1,39 @@
 const Post = require('../models/UserPost');
-const aws = require('aws-sdk');
-
-aws.config.update({
-    accessKeyId: '',
-    secretAccessKey: ""
-});
+const {Datastore} = require('@google-cloud/datastore');
 
 module.exports = async(req, res) => {
 
     const userId = req.params.id_user;
-    const urlPost = req.file.location;
-    const keyPost = req.file.key;
+    const urlPost = req.file.cloudStoragePublicUrl;
+    const keyPost = req.file.cloudStorageObject;
     const like = 0;
     const deslike = 0;
 
-    Post.create({userId, urlPost, keyPost, like, deslike})
-        .then(function(){
-            res.redirect('/user/'+`${userId}`);
-            return;
-        })
-        .catch(function(error){
-            res.status(500).json(error);
-        })
+    const post = await Post.create({userId, urlPost, keyPost, like, deslike});
+    const datastore = new Datastore();
+    const taskKey = datastore.key('post');
+    const entity = {
+        key: taskKey,
+        data: [
+            {
+                name: 'like',
+                value: 0
+            },
+            {
+                name: 'deslike',
+                value: 0
+            },
+            {
+                name: 'id_post',
+                value: post.id
+            },
+        ],
+    };
+    try {
+        datastore.save(entity); 
+    } catch (err) {
+        console.error('ERROR:', err);
+    }
+    res.redirect('/user/'+`${userId}`);
+    return;
 }

@@ -22,11 +22,11 @@ const _put = require('../controllers/Update');
 const _delete = require('../controllers/Delete');
 
 routes.get('/', (req, res) => {
-    res.render('Cadastro');
+    res.render('Cadastro', {msg:''});
 })
 
 routes.get('/:id', _get);
-routes.post('/', multer(multerConfig).single('avatar'), _post);
+routes.post('/', multerConfig.multer.single('avatar'), multerConfig.sendUploadToGCS, _post);
 routes.put('/:id', _put);
 routes.delete('/:id', _delete);
 

@@ -1,24 +1,64 @@
-//const multer = require('multer');
-const aws = require('aws-sdk');
-const multerS3 = require('multer-s3');
+const Multer = require('multer');
 const crypto = require('crypto');
+const {Storage} = require('@google-cloud/storage');
+const {format} = require('util');
 
-aws.config.update({
-    accessKeyId: '',
-    secretAccessKey: ""
-  });
 
-module.exports = {
 
-/*storage: multer.diskStorage({
+const multer = Multer({
+    storage: Multer.memoryStorage()
+})
+
+function sendUploadToGCS (req, res, next){
+    
+    const storage = new Storage({
+        projectId: ''
+    });
+    
+    const bucket = storage.bucket('piratasgram-uploads');
+    const hash = crypto.randomBytes(16);
+    const gcsname = format(`${hash.toString("hex")}-${req.file.originalname}`);
+
+    const blob = bucket.file(gcsname);
+    const blobStream = blob.createWriteStream({
+        metadata: {
+          contentType: req.file.mimetype
+        },
+        resumable: false
+    });
+
+    blobStream.on('error', err => {
+        console.log(err);
+        return res.redirect('/user');
+    });
+    
+    blobStream.on('finish', () => {
+        // The public URL can be used to directly access the file via HTTP.
+        req.file.cloudStorageObject = gcsname;
+        req.file.cloudStoragePublicUrl = getPublicUrl(bucket.name,blob.name);
+        console.log('Foto enviada com sucesso');
+        next();
+    });
+    
+    blobStream.end(req.file.buffer); 
+}
+
+function getPublicUrl (bucket, filename) {
+    return `https://storage.googleapis.com/${bucket}/${filename}`;
+}
+
+module.exports = {sendUploadToGCS, multer};
+
+/*
+storage: multer.diskStorage({
     destination: (req, file, cb) => {
         cb(null, 'public/uploads/')
     },
     filename: (req, file, cb) => {
         cb(null, file.originalname)
     }
-})*/
-
+})
+    
     storage: multerS3({
         s3: new aws.S3(),
         bucket:'BUCKET_S3',
@@ -34,5 +74,4 @@ module.exports = {
         }
 
     })
-
-};
+    */

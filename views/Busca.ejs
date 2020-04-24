@@ -42,7 +42,7 @@
 			
             <div class="col-sm float-right" style="margin-right: 1%; margin-top: 2%;" >	
 				<form class="form-inline my-2 my-lg-0 float-right" >
-					<input class="form-control mr-sm-2" type="search" placeholder="Buscar Usuários" aria-label="Search" required>
+					<input class="form-control mr-sm-2" type="search" placeholder="Apelido ou nome completo" aria-label="Search" required>
 					<button class="btn btn-warning my-2 my-sm-0" type="submit">Buscar</button>
 				</form>
             </div>
@@ -52,7 +52,7 @@
 		<div class="row justify-content-center">
 			<uL id="itens">
 				<li>
-			<% if(posts){%>
+			<% if(posts != ''){%>
 				<% posts.forEach(function(customer){%>
 				<div class="col-md-12 col-sm-12">
 					<div id="cardfoto" class="card border-light ">
@@ -63,35 +63,6 @@
 								</div>
 								<div class="col-10 text-center">
 									<%=user.createdAt%>
-								</div>
-								<div class="col-1 text-right">
-								
-										<!-- Modal Para excluir Post-->
-									
-										<button class="btn btn-sm" data-toggle="modal" data-target="#excluirPost<%=customer.id%>">X</button>
-								
-										<form action="/user/posts/<%=user.id%>/<%=customer.id%>?_method=DELETE" method="POST" enctype="application/json">
-											<div  class="modal fade" id="excluirPost<%=customer.id%>" tabindex="-1" role="dialog" aria-labelledby="eexampleModalLabel" aria-hidden="true">
-												<div class="modal-dialog" role="document" id="excluirPost<%=customer.id%>">
-													<div class="modal-content">
-														<div class="modal-header" style="margin-top: 10%;">
-															<h5 class="modal-title" id="eexampleModalLabel">Exclusão de Postagem</h5>
-															<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-																<span aria-hidden="true">&times;</span>
-															</button>
-														</div>
-														<div class="modal-body">
-															<p>Deseja realmente excluir?</p>
-															<input type="hidden" name="_method" value="DELETE">
-														</div>
-													<div class="modal-footer">
-														<button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-														<button type="submit" class="btn btn-danger">Excluir</button>
-													</div>
-												</div>
-											</div>
-										</div>
-									</form>
 								</div>
 							</div>
 						</div>
@@ -107,12 +78,20 @@
 									<form method="POST" action="/user/like/<%=user.id%>/<%=customer.id%>">
 										
 										<button style="background-color: transparent;" onclick="like()" class="btn"><i id="<%=customer.id%>" class="fas fa-heart"></i></button>
-										<%=customer.like%>
+										<% tasks.forEach(function(task){%>
+											<%if(task.id_post == customer.id){%>
+												<%=task.like%>
+											<%}%>
+										<% });%>
 									</form>
 
 									<form method="POST" action="/user/deslike/<%=user.id%>/<%=customer.id%>">
 										<button style="background-color: transparent;" onclick="like()" class="btn"><i id="deslike<%=customer.id%>" class="fas fa-thumbs-down"></i></button>
-										<%=customer.deslike%>
+										<% tasks.forEach(function(task){%>
+											<%if(task.id_post == customer.id){%>
+												<%=task.deslike%>
+											<%}%>
+										<% });%>
 									</form>
 								</div>
 							</div>
@@ -127,7 +106,7 @@
 					<button type="button" class="close" data-dismiss="alert" aria-label="Close">
 					  <span aria-hidden="true">&times;</span>
 					</button>
-					Nenhuma postagem, não perca tempo, poste uma foto!
+					Nenhuma postagem
 				</div>
 				
 			<%}%>

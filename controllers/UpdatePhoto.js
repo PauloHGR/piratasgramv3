@@ -1,10 +1,6 @@
 const User = require('../models/User');
-const aws = require('aws-sdk');
+const {Storage} = require('@google-cloud/storage');
 
-aws.config.update({
-    accessKeyId: '',
-    secretAccessKey: ""
-});
 
 module.exports = async(req, res) => {
 
@@ -13,18 +9,11 @@ module.exports = async(req, res) => {
     const id = req.params.id_user;
     const us = await User.findOne({where:{id:id}});
 
-    const s3 = new aws.S3();
-    const params = {
-        Bucket: 'BUCKET_S3',
-        Key: us.key
-    };
+    const storage = new Storage();
+    storage.bucket('piratasgram-uploads').file(us.key).delete();
 
-    s3.deleteObject(params, function(err, data){
-        if(err){console.log(err)}
-    });
-
-    const avatar = req.file.location;
-    const key = req.file.key
+    const avatar = req.file.cloudStoragePublicUrl;
+    const key = req.file.cloudStorageObject;
 
     User.update({avatar, key}, {where: {id:id}})
     .then(function(){

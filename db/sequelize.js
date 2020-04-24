@@ -6,11 +6,17 @@
 */
 
 const Sequelize = require('sequelize');
-
-const connection = new Sequelize('BD', 'Usuario', 'senha', {
-    host:'HOST',
+const config = require('config');
+const connection = new Sequelize(config.get('mysql.database'), config.get('mysql.user'), config.get('mysql.pass'), {
+    host: config.get('mysql.server'),
     dialect:'mysql',
-    ssl: true
+    ssl: true,
+    timestamps: false,
+    dialectOptions: {
+        socketPath: `/cloudsql/${config.get('mysql.server')}`
+    }
+    
+    
 });
 
 connection.authenticate()

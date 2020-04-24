@@ -1,5 +1,6 @@
 const User = require('../models/User');
 const Post = require('../models/UserPost');
+const {Datastore} = require('@google-cloud/datastore');
 
 /*
 class Get {
@@ -18,7 +19,11 @@ module.exports = async(req, res) => {
 
     const user = await User.findOne({where:{id:id}});
 
-    res.render('Home', {user:user, posts:posts})
+    const datastore = new Datastore();
+    const query = datastore.createQuery('post').order('id_post');
+    const [tasks] = await datastore.runQuery(query);
+
+    res.render('Home', {user:user, posts:posts, tasks:tasks})
     return;
     
     /*
