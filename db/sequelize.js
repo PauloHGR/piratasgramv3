@@ -11,12 +11,7 @@ const connection = new Sequelize(config.get('mysql.database'), config.get('mysql
     host: config.get('mysql.server'),
     dialect:'mysql',
     ssl: true,
-    timestamps: false,
-    dialectOptions: {
-        socketPath: `/cloudsql/${config.get('mysql.server')}`
-    }
-    
-    
+    timestamps: false
 });
 
 connection.authenticate()

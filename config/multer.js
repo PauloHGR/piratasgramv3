@@ -12,7 +12,7 @@ const multer = Multer({
 function sendUploadToGCS (req, res, next){
     
     const storage = new Storage({
-        projectId: ''
+        projectId: 'estudos-cloud-274013'
     });
     
     const bucket = storage.bucket('piratasgram-uploads');

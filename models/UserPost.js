@@ -23,7 +23,7 @@ const PostSchema = sequelize.define('posts', {
     }
 });
 
-PostSchema.sync();
+sequelize.sync({force:false});
 
 UserSchema.hasMany(PostSchema, {foreignKey: 'userId'});
 PostSchema.belongsTo(UserSchema, {foreignKey: 'userId'});

@@ -1,8 +1,8 @@
 {
     "mysql": {
-        "user": "",
-        "pass": "",
-        "database": "",
-        "server":""
+        "user": "root",
+        "pass": "admin123",
+        "database": "dbsgram",
+        "server":"db"
     }
 }

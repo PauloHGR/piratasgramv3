@@ -34,6 +34,6 @@ const UserSchema = sequelize.define('customers', {
     }
 });
 
-UserSchema.sync();
+sequelize.sync({force:false});
 
 module.exports = UserSchema;

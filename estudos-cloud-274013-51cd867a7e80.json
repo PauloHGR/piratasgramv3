@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "estudos-cloud-274013",
+  "private_key_id": "51cd867a7e80cc9e7173e9107544817b83db8acf",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQDJefSbJF//M2Co\nVuk8gqYu86CAfWAer74csk+bWy0EHPr+Mo+IsN+JmGYV74y7qrkuyQtFOwQrreuC\nyg88SPW9n8Bp+fLipGKrZCXZxMO6mIu+GfaVu+QqxxOGTVGlFRK+8qTKfYh+6ssA\n0pYDgdIwqKXfz8ITwaI4iQQwgc6d/8IgPt9PDFNdVklb43EI7kQ/+B+5bnQpT3Nq\n5cgZST8VSHm1RfTI5Qf9x5aJqcDFq7RIJBSQKGZNT5B3/lNqE+q5tr5ZprpE0XSL\n9Hv9AKPCjrthadDvEabl9ZZFRH7DLx2u8dEocixhrofMOyz32jRET94R/vlggfJ0\nhNLVuJd9AgMBAAECggEANp5To+1IAvCELw6kmw1WDNtp8vtKH/eHo9LpBtZATWGn\n31qIk8dTSkNgxWiT79o36omA/yshFdBHzMSHPdIPoHDa4j/qyutCfnEfW7peT0sE\ncywpr2zozXn7foiebhDY7J/t8aD3bGStVNNB7MB4YU2O7i4t0FpJZmcqlhXSk/0i\n75Nmh5CGLwwlq7tL2ecySTUTV7YG2J/ktCDJiubu8Qt88HBIl42ccwPWGSRA4jyP\neX/JILXnvvM5WFCQLVjal0/PXIYPxwtquPLNBA1z2FRsvLYSz3NrsIuQQKvVE35d\nlw3dmEN7Y2oQ4khARpRzxsXjrVOHXEpztfDvtcR4dwKBgQDvNLWi2qVXTwGtS1P7\nKGhH/W9NQNFDYdinHyQje2kUjA7VWgnsbg04Kq9+bQr8UzG4Uf4JEzF2IX0l/V7+\n1qL856BBDBBKpCzeOjPPIEfPlNfENLgwJhrDmJ4ULufTgcZsDnIP/6CLtIPESclE\nk5zg3VNOr3uuUVRmTWs0DpooZwKBgQDXnyBzjG3CsTE3tscK4uSbhLBWqA7ZWXnC\n9zfWuMVJxKZD+14F+s2cMAdp+kcz4WJsF7QpEB4S8yEt41PmDUqlEQdFWtLT3tDI\ni1pT35qxjnm0P9bRV+225p2L9Eh8QzmwpfXzWDlMmcBa6Ji7fOebnh7phnmhEe7J\n1v2HBXqiewKBgQDoIPB6309AUM1BzC3tNyMraUdPYq0whI1ocJHzVNl+NQRYCo5C\nv/FYJiQzvcHBZ0KCqh6p09RV3N3DtgMvrj5wyp37Qae1p2hbJ4QLZjoJuVlBcB+l\nqfSjB0GwOGyEFhXl2obZ+6liqYSNQUVtpQnCNUWYwDZ3zTjoJgz4cYsr1QKBgC88\nT+qgR+dP0/1lkCMlY3liTxMcy+v3ewIoEFZ8sdOgPeBEr+tVbzeZGfawemq2JE6T\nvscEHeJ+2rTnyRhrrv+MRHCAHhGGDWzxgj8/i+77zFOdbJz9yzi3OqpPQJXgUEIP\niVre5+aNBCOmMtdX3JEtyY3VBM4xVINpEq9ClwQDAoGBAJ8oorvT0vDx/xLHOHuo\nMfcYSWUXZoi87q3whHr2GTBFwRfISJ6YW7Y7gRxkryCr1bwz3cWRMFftWa9u4gk2\n8qr/plx7FsmyNbCy9GK4ZbiZbtIdXy893fvvjcuubV0MRW0Esu2nLr+L2FcMqlNp\nqFmG83A8iMRvPElVjTlCoeLB\n-----END PRIVATE KEY-----\n",
+  "client_email": "credenciaisapi@estudos-cloud-274013.iam.gserviceaccount.com",
+  "client_id": "116561188645115481313",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/credenciaisapi%40estudos-cloud-274013.iam.gserviceaccount.com"
+}
