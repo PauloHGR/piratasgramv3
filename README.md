@@ -17,10 +17,10 @@ Segue abaixo os passos necessários para rodar a seguinte aplicação:
   
   Com esse comando o docker-compose irá instalar os containers da aplicação e também do banco de dados Mysql. O arquivo de  build da aplicação está definido no arquivo Dockerfile na pasta corrente. Assim que finalizar os containers serão inicializados e estarão em execução. Porém a aplicação não estará pronta, pois o docker-compose instanciou apenas o container com banco de dados, faltando a criação das tabelas.
   
- 4 - Para iniciar a instanciação das tabelas, finalize os containers com o comando
+ 4 - Para iniciar a instanciação das tabelas, finalize os containers com o comando:
   sudo docker-compose down
   
- 5 - rode o comando
+ 5 - rode o comando:
   sudo docker-compose up
   
   Esse comando sobe novamente os containers. Isso força o sequelize a criar finalmente as tabelas.
